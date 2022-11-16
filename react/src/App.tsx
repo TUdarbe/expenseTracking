@@ -2,6 +2,8 @@ import { useState } from "react";
 import Header from "../components/Header";
 import StackedBar from "../components/StackedBar";
 import PieChart from "../components/PieChart";
+import ColumnChart from "../components/ColumnChart";
+import ExpenseTable from "../components/ExpenseTable";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 
@@ -19,9 +21,13 @@ function App() {
           <div id="barGraphContainer">
             <StackedBar></StackedBar>
           </div>
-          <div id="horizontalGraphContainer"></div>
+          <div id="columnChartContainer">
+            <ColumnChart></ColumnChart>
+          </div>
         </div>
-        <div id="expenseTable"></div>
+        <div id="expenseTable">
+          <ExpenseTable></ExpenseTable>
+        </div>
       </div>
     </>
   );
