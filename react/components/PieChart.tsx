@@ -3,8 +3,12 @@ import { ApexOptions } from "apexcharts";
 
 function PieChart() {
   const options: ApexOptions = {
+    title: {
+      text: "Distribution",
+    },
     chart: {
       width: 200,
+      foreColor: "#fff",
     },
     legend: {
       position: "bottom",

@@ -19,11 +19,15 @@ const data = {
 };
 
 const options: ApexOptions = {
+  title: {
+    text: "Total",
+  },
   chart: {
     type: "bar",
     height: 350,
     stacked: true,
     stackType: "100%",
+    foreColor: "#fff",
   },
   responsive: [
     {

@@ -8,6 +8,7 @@ function StackedBar() {
       height: 350,
       stacked: true,
       stackType: "100%",
+      foreColor: "#fff",
     },
     plotOptions: {
       bar: {
@@ -19,7 +20,7 @@ function StackedBar() {
       colors: ["#fff"],
     },
     title: {
-      text: "100% Stacked Bar",
+      text: "Spending Categories",
     },
     xaxis: {
       categories: [2008, 2009, 2010, 2011, 2012, 2013, 2014],

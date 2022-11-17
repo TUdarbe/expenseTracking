@@ -15,4 +15,20 @@
 
 #pieChartContainer {
   width: 20%;
+  margin: 10px;
+  margin: 58px 50px 75px 100px;
+}
+
+#barGraphContainer {
+  width: 35%;
+  margin: 50px 50px 75px 100px;
+}
+
+#columnChartContainer {
+  width: 35%;
+  margin: 50px 50px 75px 100px;
+}
+
+.ag-root-wrapper {
+  margin: 20px;
 }
