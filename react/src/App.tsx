@@ -25,7 +25,14 @@ function App() {
             <ColumnChart></ColumnChart>
           </div>
         </div>
+
         <div id="expenseTable">
+          <button
+            id="addButton"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Add Expense
+          </button>
           <ExpenseTable></ExpenseTable>
         </div>
       </div>

@@ -1,19 +1,20 @@
 import Chart from "react-apexcharts";
+import { DAYS } from "../constants";
 import { ApexOptions } from "apexcharts";
 
 const data = {
   series: [
     {
       name: "PRODUCT A",
-      data: [44, 55, 41, 67, 22, 43, 21, 49],
+      data: [44, 55, 41, 67, 22, 43, 21],
     },
     {
       name: "PRODUCT B",
-      data: [13, 23, 20, 8, 13, 27, 33, 12],
+      data: [13, 23, 20, 8, 13, 27, 33],
     },
     {
       name: "PRODUCT C",
-      data: [11, 17, 15, 15, 21, 14, 15, 13],
+      data: [11, 17, 15, 15, 21, 14, 15],
     },
   ],
 };
@@ -42,15 +43,7 @@ const options: ApexOptions = {
     },
   ],
   xaxis: {
-    categories: [
-      "Monday",
-      "Tuesday",
-      "Wedneday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-    ],
+    categories: DAYS,
   },
   fill: {
     opacity: 1,
