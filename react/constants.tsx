@@ -16,3 +16,5 @@ export const MONTHS = [
 export const DAYS = ["MON", "TUES", "WED", "THU", "FRI", "SAT", "SUN"];
 
 export const YEARS = ["2022", "2023", "2024"];
+
+export const CATEGORIES = ["FOOD", "AUTO", "BILLS", "HOBBY", "GAMES", "OTHER"];

@@ -1,5 +1,5 @@
 import Chart from "react-apexcharts";
-import { DAYS } from "../constants";
+import { DAYS, CATEGORIES } from "../constants";
 import { ApexOptions } from "apexcharts";
 
 const data = {
@@ -55,7 +55,7 @@ const options: ApexOptions = {
   },
 };
 
-function ColumnChart() {
+function ColumnChart({}) {
   return (
     <>
       <Chart options={options} series={data.series} type="bar" height={350} />
