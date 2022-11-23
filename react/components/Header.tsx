@@ -2,18 +2,25 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-const navigation = [
-  { name: "Daily", href: "#", current: true },
-  { name: "Weekly", href: "#", current: false },
-  { name: "Monthly", href: "#", current: false },
-  { name: "Yearly", href: "#", current: false },
-];
+// const navigation = [
+//   { name: "Daily", href: "#", current: true },
+//   { name: "Monthly", href: "#", current: false },
+//   { name: "Yearly", href: "#", current: false },
+// ];
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Header() {
+interface Props {
+  navigationArray: {
+    name: string;
+    href: string;
+    current: boolean;
+  }[];
+}
+
+export default function Header({ navigationArray }: Props) {
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -46,7 +53,7 @@ export default function Header() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
+                    {navigationArray.map((item: any) => (
                       <a
                         key={item.name}
                         href={item.href}
@@ -126,7 +133,7 @@ export default function Header() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
-              {navigation.map((item) => (
+              {navigationArray.map((item: any) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"
