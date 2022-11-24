@@ -1,7 +1,9 @@
 import Header from "../components/Header";
-import StackedBar from "../components/StackedBar";
-import PieChart from "../components/PieChart";
-import ColumnChart from "../components/ColumnChart";
+
+import MonthlyColumnChart from "../components/columnCharts/MonthlyColumnChart";
+import MonthlyPieChart from "../components/pieCharts/MonthlyPieChart";
+import MonthlyStackedBar from "../components/stackedBars/MonthlyStackedBar";
+
 import ExpenseTable from "../components/ExpenseTable";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 function Monthly() {
@@ -17,20 +19,20 @@ function Monthly() {
         <Header navigationArray={navigation}></Header>
         <div id="chartContainer">
           <div id="pieChartContainer">
-            <PieChart></PieChart>
+            <MonthlyPieChart></MonthlyPieChart>
           </div>
           <div id="barGraphContainer">
-            <StackedBar></StackedBar>
+            <MonthlyStackedBar></MonthlyStackedBar>
           </div>
           <div id="columnChartContainer">
-            <ColumnChart></ColumnChart>
+            <MonthlyColumnChart></MonthlyColumnChart>
           </div>
         </div>
 
         <div id="expenseTable">
           <button
             id="addButton"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-green-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             Add Expense
           </button>

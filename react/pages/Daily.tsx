@@ -1,9 +1,13 @@
 import Header from "../components/Header";
-import StackedBar from "../components/StackedBar";
-import PieChart from "../components/PieChart";
-import ColumnChart from "../components/ColumnChart";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBurger } from "@fortawesome/free-solid-svg-icons";
+import DailyColumnChart from "../components/columnCharts/DailyColumnChart";
+import DailyPieChart from "../components/pieCharts/DailyPieChart";
+import DailyStackedBar from "../components/stackedBars/DailyStackedBar";
 import ExpenseTable from "../components/ExpenseTable";
+
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
 function Daily() {
   const navigation = [
     { name: "Daily", href: "/", current: true },
@@ -17,23 +21,25 @@ function Daily() {
         <Header navigationArray={navigation}></Header>
         <div id="chartContainer">
           <div id="pieChartContainer">
-            <PieChart></PieChart>
+            <DailyPieChart></DailyPieChart>
           </div>
           <div id="barGraphContainer">
-            <StackedBar></StackedBar>
+            <DailyStackedBar></DailyStackedBar>
           </div>
           <div id="columnChartContainer">
-            <ColumnChart></ColumnChart>
+            <DailyColumnChart></DailyColumnChart>
           </div>
         </div>
 
         <div id="expenseTable">
           <button
             id="addButton"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-green-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             Add Expense
+            <FontAwesomeIcon icon={faBurger} />
           </button>
+
           <ExpenseTable></ExpenseTable>
         </div>
       </div>

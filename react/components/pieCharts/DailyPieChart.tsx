@@ -1,7 +1,7 @@
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
-function PieChart() {
+function DailyPieChart() {
   const options: ApexOptions = {
     labels: ["Apple", "Mango", "Banana", "Papaya", "Orange"],
     title: {
@@ -27,4 +27,4 @@ function PieChart() {
   );
 }
 
-export default PieChart;
+export default DailyPieChart;
