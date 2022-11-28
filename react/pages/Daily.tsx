@@ -5,6 +5,8 @@ import DailyColumnChart from "../components/columnCharts/DailyColumnChart";
 import DailyPieChart from "../components/pieCharts/DailyPieChart";
 import DailyStackedBar from "../components/stackedBars/DailyStackedBar";
 import ExpenseTable from "../components/ExpenseTable";
+import CategoryDropdown from "../components/CategoryDropdown";
+import ExpenseForm from "../components/ExpenseForm";
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -37,8 +39,11 @@ function Daily() {
             className="bg-green-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             Add Expense
-            <FontAwesomeIcon icon={faBurger} />
           </button>
+
+          <div className="expenseInfoContainer">
+            <ExpenseForm />
+          </div>
 
           <ExpenseTable></ExpenseTable>
         </div>
