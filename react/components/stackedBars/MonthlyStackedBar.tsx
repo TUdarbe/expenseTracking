@@ -67,6 +67,16 @@ function MonthlyStackedBar() {
       },
     ],
   };
+
+  interface Props {
+    expenses: {
+      date: Date;
+      category: any;
+      description: string;
+      amount: number;
+      note: string;
+    };
+  }
   return (
     <>
       <Chart options={options} series={data.series} type="bar" height={350} />

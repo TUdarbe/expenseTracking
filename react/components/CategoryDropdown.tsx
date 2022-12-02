@@ -9,8 +9,8 @@ function CategoryDropdown() {
         <option>FOOD</option>
         <option>AUTO</option>
         <option>BILLS</option>
-        <option>HOBBY</option>
-        <option>GAMES</option>
+        <option>CLOTHES</option>
+        <option>GAMES & HOBBY</option>
         <option>OTHER</option>
       </select>
     </div>

@@ -5,9 +5,9 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./components/*.tsx",
     "./pages/*.tsx",
+    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
 };

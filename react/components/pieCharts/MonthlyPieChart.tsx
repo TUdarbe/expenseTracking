@@ -20,6 +20,16 @@ function MonthlyPieChart() {
     series: [44, 55, 41, 17, 15],
   };
 
+  interface Props {
+    expenses: {
+      date: Date;
+      category: any;
+      description: string;
+      amount: number;
+      note: string;
+    };
+  }
+
   return (
     <>
       <Chart options={options} series={data.series} type="donut" />
