@@ -55,6 +55,16 @@ const options: ApexOptions = {
   },
 };
 
+interface Props {
+  expenses: {
+    date: Date;
+    category: any;
+    description: string;
+    amount: number;
+    note: string;
+  };
+}
+
 function MonthlyColumnChart({}) {
   return (
     <>

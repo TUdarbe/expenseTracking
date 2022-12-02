@@ -8,9 +8,20 @@ import ExpenseTable from "../components/ExpenseTable";
 import CategoryDropdown from "../components/CategoryDropdown";
 import ExpenseForm from "../components/ExpenseForm";
 
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import database from "../util/Fbdatabase";
+import { doc, getDocs, collection } from "firebase/firestore";
+
+interface DailyExpenses {
+  amount: Number;
+  category: string;
+  date: Date;
+  description: string;
+}
 
 function Daily() {
+  const [data, setData] = useState<DailyExpenses[]>([]);
+
   const navigation = [
     { name: "Daily", href: "/", current: true },
     { name: "Monthly", href: "/monthly", current: false },
