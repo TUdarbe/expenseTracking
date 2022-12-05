@@ -1,18 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
+import Dropdown from "react-dropdown";
+import Select from "react-select";
+import "react-dropdown/style.css";
 
 export const CATEGORIES = ["FOOD", "AUTO", "BILLS", "HOBBY", "GAMES", "OTHER"];
 
+type TagOptionType = { value: string; label: string };
+
+const options: TagOptionType[] = [
+  { value: "FOOD", label: "FOOD" },
+  { value: "AUTO", label: "AUTO" },
+  { value: "BILLS", label: "BILLS" },
+  { value: "HOBBY", label: "HOBBY" },
+  { value: "GAMES", label: "GAMES" },
+  { value: "OTHER", label: "OTHER" },
+];
+
+const defaultOption = CATEGORIES[0];
+
 function CategoryDropdown() {
+  const [category, setCategory] = useState({});
+
+  const handleChange = (option: TagOptionType) => {
+    setCategory(option);
+  };
+
+  const handleOnClick = () => {
+    console.log({ category });
+  };
+
   return (
     <div className="relative w-full lg:max-w-sm mb-2">
-      <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
-        <option>FOOD</option>
-        <option>AUTO</option>
-        <option>BILLS</option>
-        <option>CLOTHES</option>
-        <option>GAMES & HOBBY</option>
-        <option>OTHER</option>
-      </select>
+      <Select
+        value={category}
+        inputId="categoryDropdown"
+        onChange={(option) => handleChange(option as TagOptionType)}
+        options={options as any}
+      />
     </div>
   );
 }

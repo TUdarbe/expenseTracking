@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from "react";
 import Chart from "react-apexcharts";
-import { DAYS, CATEGORIES } from "../../constants";
+import { DAYS, CATEGORIES, MONTHS } from "../../constants";
 import { ApexOptions } from "apexcharts";
 import database from "../../util/Fbdatabase";
 import {
@@ -49,96 +49,103 @@ function DailyColumnChart() {
   const [xAxis, setXAxis] = useState<any[]>([]);
   const [series, setSeries] = useState<any[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      /*
-        TODO: 
-          - Query data to get pass 7 days
-          - Fetch data for each category
-          - Fetch that data and populate series on chart
-          - Fetch data timestamps and convert it into date
-          - Update the state of the xAxis
-          - Edit X-Axis so that shows the pass 7 days in YYYY-MM-DD format
-      */
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     /*
+  //       TODO:
+  //         - Query data to get pass 7 days
+  //         - Fetch data for each category
+  //         - Fetch that data and populate series on chart
+  //         - Fetch data timestamps and convert it into date
+  //         - Update the state of the xAxis
+  //         - Edit X-Axis so that shows the pass 7 days in YYYY-MM-DD format
+  //     */
 
-      const startDate = moment.utc().valueOf();
+  //     const startDate = moment.utc().valueOf();
 
-      const endDate = moment()
-        .utc()
-        .subtract(1, "w")
-        .format("X");
+  //     const endDate = moment()
+  //       .utc()
+  //       .subtract(1, "w")
+  //       .format("X");
 
-      const expenseObj = {};
+  //     const expenseObj = {};
 
-      const expenseData: IExpense[] = [];
+  //     const expenseData: IExpense[] = [];
 
-      //const querySnapshot = await getDocs(collection(database, "expenses"));
+  //     //const querySnapshot = await getDocs(collection(database, "expenses"));
 
-      const expensesRef = collection(database, "expenses");
+  //     const expensesRef = collection(database, "expenses");
 
-      const q = query(
-        expensesRef,
-        where("date", ">=", Timestamp.fromMillis(startDate))
-        //    where("date", "<=", endDate)
-      );
+  //     const q = query(
+  //       expensesRef,
+  //       where("date", ">=", Timestamp.fromMillis(startDate))
+  //       //    where("date", "<=", endDate)
+  //     );
 
-      const querySnapshot = await getDocs(q);
-      const seriesArr: Series[] = [];
+  //     const querySnapshot = await getDocs(q);
+  //     const seriesArr: Series[] = [];
 
-      querySnapshot.forEach((doc) => {
-        const docData = doc.data();
+  //     querySnapshot.forEach((doc) => {
+  //       const docData = doc.data();
 
-        //console.log("QUERY DATA ===>" + doc.data());
-        const seriesObj = {} as Series;
+  //       //console.log("QUERY DATA ===>" + doc.data());
+  //       const seriesObj = {} as Series;
 
-        seriesObj.name = docData.category;
+  //       seriesObj.name = docData.category;
 
-        seriesObj.data = [docData.amount];
+  //       seriesObj.data = [docData.amount];
 
-        console.log(JSON.stringify(seriesObj));
+  //       console.log(JSON.stringify(seriesObj));
 
-        seriesArr.push(seriesObj);
+  //       seriesArr.push(seriesObj);
 
-        expenseData.push(doc.data() as IExpense);
+  //       expenseData.push(doc.data() as IExpense);
 
-        setChartData(expenseData);
-      });
-      setSeries(seriesArr);
-    };
-    fetchData();
-  }, []);
-
-  // const data = {
-  //   series: [
-  //     {
-  //       name: "PRODUCT A",
-  //       data: [44, 55, 41, 67, 22, 43, 21],
-  //     },
-  //     {
-  //       name: "PRODUCT B",
-  //       data: [13, 23, 20, 8, 13, 27, 33],
-  //     },
-  //     {
-  //       name: "PRODUCT C",
-  //       data: [11, 17, 15, 15, 21, 14, 15],
-  //     },
-  //   ],
-  // };
+  //       setChartData(expenseData);
+  //     });
+  //     setSeries(seriesArr);
+  //   };
+  //   fetchData();
+  // }, []);
 
   const data = {
-    series: series,
+    series: [
+      {
+        data: [44, 55, 33, 22, 31],
+      },
+    ],
   };
+
+  // const data = {
+  //   series: series,
+  // };
 
   const options: ApexOptions = {
     title: {
-      text: "Total",
+      text: "Total Monthly Spendings",
+      style: {
+        color: "white",
+      },
     },
+
     chart: {
       type: "bar",
       height: 350,
-      stacked: true,
-      stackType: "100%",
-      foreColor: "#fff",
+    },
+    plotOptions: {
+      bar: {
+        dataLabels: {
+          total: {
+            enabled: true,
+            offsetX: 0,
+            style: {
+              fontSize: "13px",
+              fontWeight: 900,
+              color: "white",
+            },
+          },
+        },
+      },
     },
     responsive: [
       {
@@ -153,15 +160,22 @@ function DailyColumnChart() {
       },
     ],
     xaxis: {
-      categories: DAYS,
+      categories: MONTHS,
+      labels: {
+        style: {
+          colors: "white",
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: "white",
+        },
+      },
     },
     fill: {
       opacity: 1,
-    },
-    legend: {
-      position: "right",
-      offsetX: 0,
-      offsetY: 50,
     },
   };
 

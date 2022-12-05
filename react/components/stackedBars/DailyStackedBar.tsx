@@ -1,5 +1,5 @@
 import Chart from "react-apexcharts";
-import { DAYS } from "../../constants";
+import { DAYS, MONTHS } from "../../constants";
 import { ApexOptions } from "apexcharts";
 
 function DailyStackedBar() {
@@ -8,31 +8,59 @@ function DailyStackedBar() {
       type: "bar",
       height: 350,
       stacked: true,
-      stackType: "100%",
-      foreColor: "#fff",
-    },
-    plotOptions: {
-      bar: {
-        horizontal: true,
+      toolbar: {
+        show: true,
+      },
+      zoom: {
+        enabled: true,
       },
     },
+
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          legend: {
+            position: "bottom",
+            offsetX: -10,
+            offsetY: 0,
+            style: {
+              color: "white",
+            },
+          },
+        },
+      },
+    ],
+
     stroke: {
       width: 1,
       colors: ["#fff"],
     },
     title: {
       text: "Spending Categories",
+      style: {
+        color: "white",
+      },
     },
-    xaxis: {
-      categories: DAYS,
-    },
-    tooltip: {
-      y: {
-        formatter: function(val: any) {
-          return val + "K";
+
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        borderRadius: 10,
+        dataLabels: {
+          total: {
+            enabled: true,
+            style: {
+              fontSize: "13px",
+              fontWeight: 900,
+              color: "white",
+            },
+          },
         },
       },
     },
+
+    tooltip: {},
     fill: {
       opacity: 1,
     },
@@ -40,30 +68,36 @@ function DailyStackedBar() {
       position: "top",
       horizontalAlign: "left",
       offsetX: 40,
+      labels: {
+        colors: "white",
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: "white",
+        },
+      },
+    },
+    xaxis: {
+      categories: MONTHS,
+      labels: {
+        style: {
+          colors: "white",
+        },
+      },
     },
   };
 
   const data = {
     series: [
       {
-        name: "Marine Sprite",
-        data: [44, 55, 41, 37, 22, 43, 21],
+        name: "PRODUCT A",
+        data: [44, 55, 41, 67, 22, 43],
       },
       {
-        name: "Striking Calf",
-        data: [53, 32, 33, 52, 13, 43, 32],
-      },
-      {
-        name: "Tank Picture",
-        data: [12, 17, 11, 9, 15, 11, 20],
-      },
-      {
-        name: "Bucket Slope",
-        data: [9, 7, 5, 8, 6, 9, 4],
-      },
-      {
-        name: "Reborn Kid",
-        data: [25, 12, 19, 32, 25, 24, 10],
+        name: "PRODUCT B",
+        data: [44, 55, 43, 67, 22, 43],
       },
     ],
   };

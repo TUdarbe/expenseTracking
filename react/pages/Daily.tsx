@@ -7,10 +7,14 @@ import DailyStackedBar from "../components/stackedBars/DailyStackedBar";
 import ExpenseTable from "../components/ExpenseTable";
 import CategoryDropdown from "../components/CategoryDropdown";
 import ExpenseForm from "../components/ExpenseForm";
+import Select from "react-select";
 
 import React, { useEffect, useState } from "react";
 import database from "../util/Fbdatabase";
 import { doc, getDocs, collection } from "firebase/firestore";
+
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
 interface DailyExpenses {
   amount: Number;
@@ -28,10 +32,38 @@ function Daily() {
     { name: "Yearly", href: "/yearly", current: false },
   ];
 
+  const options = ["2022", "2023", "2024"];
+
+  const monthOptions = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+  ];
+  const defaultOption = options[0];
+
+  const monthDefaultOption = monthOptions[0];
+
   return (
     <>
       <div className="App">
         <Header navigationArray={navigation}></Header>
+
+        <div className="yearAndMonthSelector">
+          <Dropdown
+            options={options}
+            value={defaultOption}
+            placeholder="Select an option"
+          />
+        </div>
         <div id="chartContainer">
           <div id="pieChartContainer">
             <DailyPieChart></DailyPieChart>
@@ -45,13 +77,6 @@ function Daily() {
         </div>
 
         <div id="expenseTable">
-          <button
-            id="addButton"
-            className="bg-green-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Add Expense
-          </button>
-
           <div className="expenseInfoContainer">
             <ExpenseForm />
           </div>
