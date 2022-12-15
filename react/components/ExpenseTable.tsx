@@ -12,7 +12,15 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
 import database from "../util/Fbdatabase";
-import { doc, getDocs, collection } from "firebase/firestore";
+
+import {
+  doc,
+  getDocs,
+  collection,
+  query,
+  where,
+  Timestamp,
+} from "firebase/firestore";
 
 import {
   ColDef,
@@ -34,18 +42,12 @@ interface IExpense {
 }
 
 interface Props {
-  expenses: {
-    date: Date;
-    category: any;
-    description: string;
-    amount: number;
-    note: string;
-  };
+  year: number;
 }
 
 const gridOptions: GridOptions<IExpense> = {};
 
-function ExpenseTable() {
+function ExpenseTable({ year }: Props) {
   const [rowData, setRowData] = useState<IExpense[]>([]);
 
   const gridRef = useRef<AgGridReact<IExpense>>(null);
@@ -55,7 +57,12 @@ function ExpenseTable() {
   useEffect(() => {
     const fetchData = async () => {
       const expenseData: IExpense[] = [];
-      const querySnapshot = await getDocs(collection(database, "expenses"));
+
+      //const expensesRef = await getDocs(collection(database, "expenses"));
+      const expensesRef = collection(database, "expenses");
+      const q = query(expensesRef, where("year", "==", year));
+
+      const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots

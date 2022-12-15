@@ -22,13 +22,7 @@ import "firebase/firestore";
 import moment from "moment";
 
 interface Props {
-  expenses: {
-    date: Date;
-    category: any;
-    description: string;
-    amount: number;
-    note: string;
-  };
+  year: number;
 }
 
 interface IExpense {
@@ -44,7 +38,7 @@ type Series = {
   data: any[];
 };
 
-function DailyColumnChart() {
+function DailyColumnChart({ year }: Props) {
   const [chartData, setChartData] = useState<number[]>([]);
   const [xAxis, setXAxis] = useState<any[]>([]);
   const [series, setSeries] = useState<any[]>([]);

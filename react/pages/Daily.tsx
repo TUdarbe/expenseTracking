@@ -1,6 +1,10 @@
 import Header from "../components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBurger } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBurger,
+  faPlusCircle,
+  faMinusCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import DailyColumnChart from "../components/columnCharts/DailyColumnChart";
 import DailyPieChart from "../components/pieCharts/DailyPieChart";
 import DailyStackedBar from "../components/stackedBars/DailyStackedBar";
@@ -54,10 +58,6 @@ function Daily() {
   const [year, setYear] = useState(defaultOption);
   const [showForm, setShowForm] = useState(false);
 
-  const changeLanguage = (e: any) => {
-    console.log(e.value);
-  };
-
   return (
     <>
       <div className="App">
@@ -73,22 +73,25 @@ function Daily() {
         </div>
         <div id="chartContainer">
           <div id="pieChartContainer">
-            <DailyPieChart></DailyPieChart>
+            <DailyPieChart year={parseInt(year)}></DailyPieChart>
           </div>
           <div id="barGraphContainer">
-            <DailyStackedBar></DailyStackedBar>
+            <DailyStackedBar year={parseInt(year)}></DailyStackedBar>
           </div>
           <div id="columnChartContainer">
-            <DailyColumnChart></DailyColumnChart>
+            <DailyColumnChart year={parseInt(year)}></DailyColumnChart>
           </div>
         </div>
 
         <div id="expenseTable">
           <div className="expenseInfoContainer">
+            <FontAwesomeIcon
+              onClick={() => setShowForm(true)}
+              icon={faPlusCircle}
+            />
             <ExpenseForm />
           </div>
-
-          <ExpenseTable></ExpenseTable>
+          <ExpenseTable year={parseInt(year)}></ExpenseTable>
         </div>
       </div>
     </>

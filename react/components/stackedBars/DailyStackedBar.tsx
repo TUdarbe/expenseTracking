@@ -29,13 +29,17 @@ interface ISeries {
   data: number[];
 }
 
-function DailyStackedBar() {
+interface Props {
+  year: number;
+}
+
+function DailyStackedBar({ year }: Props) {
   const [chartSeries, setChartSeries] = useState<ISeries[]>([]);
 
   let series: ISeries[] = [];
 
   const fetchData = async () => {
-    const year = moment().year();
+    //const year = moment().year();
     //For each month query totals
 
     const expensesRef = collection(database, "expenses");
@@ -170,29 +174,6 @@ function DailyStackedBar() {
       },
     },
   };
-
-  const data = {
-    series: [
-      {
-        name: "PRODUCT A",
-        data: [44, 55, 41, 67, 22, 43],
-      },
-      {
-        name: "PRODUCT B",
-        data: [44, 55, 43, 67, 22, 43],
-      },
-    ],
-  };
-
-  interface Props {
-    expenses: {
-      date: Date;
-      category: any;
-      description: string;
-      amount: number;
-      note: string;
-    };
-  }
 
   return (
     <>

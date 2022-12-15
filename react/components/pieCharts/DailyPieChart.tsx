@@ -23,13 +23,7 @@ import React, {
 import moment from "moment";
 
 interface Props {
-  expenses: {
-    date: Date;
-    category: any;
-    description: string;
-    amount: number;
-    note: string;
-  };
+  year: number;
 }
 
 interface ChartObj {
@@ -37,7 +31,7 @@ interface ChartObj {
   amount: number;
 }
 
-function DailyPieChart() {
+function DailyPieChart({ year }: Props) {
   const [chartLabels, setChartLabels] = useState<string[]>([]);
   const [chartSeries, setChartSeries] = useState<number[]>([]);
 
@@ -45,7 +39,7 @@ function DailyPieChart() {
   let series: number[] = [];
 
   const fetchData = async () => {
-    const year = moment().year();
+    // const year = moment().year();
     //For each month query totals
 
     const expensesRef = collection(database, "expenses");
