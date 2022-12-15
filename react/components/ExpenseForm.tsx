@@ -37,14 +37,15 @@ function ExpenseForm() {
       description: description,
       note: note,
       date: date,
-      year: moment().year(),
+      month: 1,
+      year: 2022,
     });
 
     console.log("Document written with ID: ", docRef.id);
   };
 
   return (
-    <form className="w-full max-w-lg">
+    <div className="w-full max-w-lg">
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full px-3">
           <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
@@ -104,7 +105,7 @@ function ExpenseForm() {
           </button>
         </div>
       </div>
-    </form>
+    </div>
   );
 }
 

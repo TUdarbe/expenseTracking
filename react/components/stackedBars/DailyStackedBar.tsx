@@ -2,7 +2,89 @@ import Chart from "react-apexcharts";
 import { DAYS, MONTHS } from "../../constants";
 import { ApexOptions } from "apexcharts";
 
+import {
+  doc,
+  getDocs,
+  collection,
+  query,
+  where,
+  Timestamp,
+} from "firebase/firestore";
+
+import "firebase/firestore";
+
+import database from "../../util/Fbdatabase";
+
+import React, {
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
+import moment from "moment";
+
+interface ISeries {
+  name: string;
+  data: number[];
+}
+
 function DailyStackedBar() {
+  const [chartSeries, setChartSeries] = useState<ISeries[]>([]);
+
+  let series: ISeries[] = [];
+
+  const fetchData = async () => {
+    const year = moment().year();
+    //For each month query totals
+
+    const expensesRef = collection(database, "expenses");
+
+    //First query to get all data for the current year set
+
+    //Each mapped obj would have an array monthTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    // Update index based on result from the query
+    const q = query(expensesRef, where("year", "==", year));
+
+    const mapObj = new Map();
+
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      const docData = doc.data();
+
+      const { category, amount, month } = docData;
+      //Map dataObjs based on categories
+      if (mapObj.get(category) === undefined) {
+        let monthTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        monthTotals[month] = amount;
+        mapObj.set(category, monthTotals);
+      } else {
+        let monthsTotal: number[] = mapObj.get(category);
+
+        monthsTotal[month] += amount;
+        mapObj.set(category, monthsTotal);
+      }
+    });
+
+    for (const [key, value] of mapObj) {
+      let seriesObj: ISeries = {
+        name: key,
+        data: value,
+      };
+
+      series.push(seriesObj);
+    }
+    setChartSeries(series);
+  };
+
+  fetchData();
+  //  console.log(chartSeries);
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const options: ApexOptions = {
     chart: {
       type: "bar",
@@ -114,7 +196,7 @@ function DailyStackedBar() {
 
   return (
     <>
-      <Chart options={options} series={data.series} type="bar" height={350} />
+      <Chart options={options} series={chartSeries} type="bar" height={350} />
     </>
   );
 }

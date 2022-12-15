@@ -17,7 +17,7 @@ import {
   where,
   Timestamp,
 } from "firebase/firestore";
-import * as firebase from "firebase/app";
+
 import "firebase/firestore";
 import moment from "moment";
 
@@ -45,76 +45,53 @@ type Series = {
 };
 
 function DailyColumnChart() {
-  const [chartData, setChartData] = useState<IExpense[]>([]);
+  const [chartData, setChartData] = useState<number[]>([]);
   const [xAxis, setXAxis] = useState<any[]>([]);
   const [series, setSeries] = useState<any[]>([]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     /*
-  //       TODO:
-  //         - Query data to get pass 7 days
-  //         - Fetch data for each category
-  //         - Fetch that data and populate series on chart
-  //         - Fetch data timestamps and convert it into date
-  //         - Update the state of the xAxis
-  //         - Edit X-Axis so that shows the pass 7 days in YYYY-MM-DD format
-  //     */
+  const fetchData = async () => {
+    let monthTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const year = moment().year();
+    //For each month query totals
 
-  //     const startDate = moment.utc().valueOf();
+    const expensesRef = collection(database, "expenses");
 
-  //     const endDate = moment()
-  //       .utc()
-  //       .subtract(1, "w")
-  //       .format("X");
+    for (var i = 0; i < monthTotals.length; i++) {
+      let monthlyTotal = 0;
 
-  //     const expenseObj = {};
+      const q = query(
+        expensesRef,
+        where("month", "==", i),
+        where("year", "==", year)
+      );
 
-  //     const expenseData: IExpense[] = [];
+      const querySnapshot = await getDocs(q);
 
-  //     //const querySnapshot = await getDocs(collection(database, "expenses"));
+      querySnapshot.forEach((doc) => {
+        const docData = doc.data();
 
-  //     const expensesRef = collection(database, "expenses");
+        let date = Number(moment(docData.date).month());
 
-  //     const q = query(
-  //       expensesRef,
-  //       where("date", ">=", Timestamp.fromMillis(startDate))
-  //       //    where("date", "<=", endDate)
-  //     );
+        monthTotals[date] += docData.amount;
+        //setChartData(monthTotals);
+      });
+    }
+    setChartData(monthTotals);
+  };
 
-  //     const querySnapshot = await getDocs(q);
-  //     const seriesArr: Series[] = [];
-
-  //     querySnapshot.forEach((doc) => {
-  //       const docData = doc.data();
-
-  //       //console.log("QUERY DATA ===>" + doc.data());
-  //       const seriesObj = {} as Series;
-
-  //       seriesObj.name = docData.category;
-
-  //       seriesObj.data = [docData.amount];
-
-  //       console.log(JSON.stringify(seriesObj));
-
-  //       seriesArr.push(seriesObj);
-
-  //       expenseData.push(doc.data() as IExpense);
-
-  //       setChartData(expenseData);
-  //     });
-  //     setSeries(seriesArr);
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const data = {
     series: [
       {
-        data: [44, 55, 33, 22, 31],
+        data: chartData,
       },
     ],
   };
+
+  //console.log(JSON.stringify(data));
 
   // const data = {
   //   series: series,
