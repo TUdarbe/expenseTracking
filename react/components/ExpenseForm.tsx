@@ -23,13 +23,14 @@ function ExpenseForm() {
   const [amount, setAmount] = useState(0);
   const [description, setDescription] = useState("");
   const [note, setNote] = useState("");
+  const [date, setDate] = useState("");
 
   const handleChange = (option: TagOptionType) => {
     setCategory(option);
   };
 
   const handleOnSubmit = async () => {
-    const date = moment().format("YYYY-MM-DD");
+    //const date = moment().format("YYYY-MM-DD");
 
     const docRef = await addDoc(collection(database, "expenses"), {
       amount: amount,
@@ -48,6 +49,22 @@ function ExpenseForm() {
     <div className="w-full max-w-lg">
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full px-3">
+          <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
+            Date
+          </label>
+          <div className="relative w-full lg:max-w-sm mb-2">
+            <input
+              type="date"
+              id="start"
+              name="trip-start"
+              value={date}
+              min="2022-01-01"
+              max="2024-12-31"
+              onChange={(e) => setDate(e.target.value)}
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            />
+          </div>
+
           <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
             Category
           </label>
