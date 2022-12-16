@@ -86,10 +86,13 @@ function Daily() {
         <div id="expenseTable">
           <div className="expenseInfoContainer">
             <FontAwesomeIcon
-              onClick={() => setShowForm(true)}
-              icon={faPlusCircle}
+              className="fa-2x"
+              id={showForm ? "hideFormButton" : "showFormButton"}
+              onClick={() => setShowForm(!showForm)}
+              icon={showForm ? faMinusCircle : faPlusCircle}
             />
-            <ExpenseForm />
+
+            {showForm ? <ExpenseForm /> : null}
           </div>
           <ExpenseTable year={parseInt(year)}></ExpenseTable>
         </div>
