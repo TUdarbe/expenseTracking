@@ -16,8 +16,6 @@ const options: TagOptionType[] = [
   { value: "OTHER", label: "OTHER" },
 ];
 
-const handleSubmit = () => {};
-
 function ExpenseForm() {
   const [category, setCategory] = useState({});
   const [amount, setAmount] = useState(0);
@@ -32,14 +30,19 @@ function ExpenseForm() {
   const handleOnSubmit = async () => {
     //const date = moment().format("YYYY-MM-DD");
 
+    const momentObj = moment(date, "YYYY-MM-DD");
+
+    const month = momentObj.month();
+    const year = momentObj.year();
+
     const docRef = await addDoc(collection(database, "expenses"), {
       amount: amount,
       category: (category as TagOptionType).value,
       description: description,
       note: note,
       date: date,
-      month: 1,
-      year: 2022,
+      month: month,
+      year: year,
     });
 
     console.log("Document written with ID: ", docRef.id);
