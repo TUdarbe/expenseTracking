@@ -7,6 +7,7 @@ import {
   query,
   where,
   Timestamp,
+  onSnapshot,
 } from "firebase/firestore";
 
 import "firebase/firestore";
@@ -34,48 +35,51 @@ interface ChartObj {
 function DailyPieChart({ year }: Props) {
   const [chartLabels, setChartLabels] = useState<string[]>([]);
   const [chartSeries, setChartSeries] = useState<number[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  let labels: string[] = [];
-  let series: number[] = [];
+  const expensesRef = collection(database, "expenses");
 
   const fetchData = async () => {
+    let labels: string[] = [];
+    let series: number[] = [];
+    const mapObj = new Map();
     // const year = moment().year();
     //For each month query totals
-
-    const expensesRef = collection(database, "expenses");
-
     const q = query(expensesRef, where("year", "==", year));
 
     const querySnapshot = await getDocs(q);
 
-    const mapObj = new Map();
-
+    //console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       const docData = doc.data();
 
-      const { category, amount } = docData;
+      const { category, amount, description } = docData;
 
       //Map dataObjs based on categories
-      if (mapObj.get(category) === undefined) {
-        mapObj.set(category, amount);
+      if (mapObj.has(category)) {
+        let newAmount = amount;
+        let currentAmount = mapObj.get(category);
+
+        newAmount += currentAmount;
+
+        mapObj.set(category, newAmount);
       } else {
-        let currentAmt = mapObj.get(category);
-        mapObj.set(category, currentAmt + amount);
+        mapObj.set(category, amount);
       }
     });
-
+    console.log(mapObj);
     for (const [key, value] of mapObj) {
       labels.push(key);
       series.push(value);
     }
-
-    setChartLabels(labels);
     setChartSeries(series);
+    setChartLabels(labels);
   };
 
   useEffect(() => {
     fetchData();
-  }, [chartLabels, chartSeries]);
+    console.log("i fire once");
+  }, [year]);
 
   const options: ApexOptions = {
     labels: chartLabels,
@@ -91,13 +95,9 @@ function DailyPieChart({ year }: Props) {
     },
   };
 
-  const data = {
-    series: chartSeries,
-  };
-
   return (
     <>
-      <Chart options={options} series={data.series} type="donut" />
+      <Chart options={options} series={chartSeries} type="donut" />
     </>
   );
 }

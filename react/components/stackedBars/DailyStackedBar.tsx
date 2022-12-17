@@ -9,6 +9,7 @@ import {
   query,
   where,
   Timestamp,
+  onSnapshot,
 } from "firebase/firestore";
 
 import "firebase/firestore";
@@ -35,19 +36,10 @@ interface Props {
 
 function DailyStackedBar({ year }: Props) {
   const [chartSeries, setChartSeries] = useState<ISeries[]>([]);
-
-  let series: ISeries[] = [];
+  const expensesRef = collection(database, "expenses");
 
   const fetchData = async () => {
-    //const year = moment().year();
-    //For each month query totals
-
-    const expensesRef = collection(database, "expenses");
-
-    //First query to get all data for the current year set
-
-    //Each mapped obj would have an array monthTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    // Update index based on result from the query
+    let series: ISeries[] = [];
     const q = query(expensesRef, where("year", "==", year));
 
     const mapObj = new Map();
@@ -83,11 +75,12 @@ function DailyStackedBar({ year }: Props) {
     setChartSeries(series);
   };
 
-  fetchData();
+  //  fetchData();
   //  console.log(chartSeries);
   useEffect(() => {
     fetchData();
-  }, []);
+    console.log("test");
+  }, [year]);
 
   const options: ApexOptions = {
     chart: {

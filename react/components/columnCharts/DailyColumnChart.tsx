@@ -16,6 +16,7 @@ import {
   query,
   where,
   Timestamp,
+  onSnapshot,
 } from "firebase/firestore";
 
 import "firebase/firestore";
@@ -43,12 +44,12 @@ function DailyColumnChart({ year }: Props) {
   const [xAxis, setXAxis] = useState<any[]>([]);
   const [series, setSeries] = useState<any[]>([]);
 
+  const expensesRef = collection(database, "expenses");
+
   const fetchData = async () => {
     let monthTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    const year = moment().year();
+    //const year = moment().year();
     //For each month query totals
-
-    const expensesRef = collection(database, "expenses");
 
     for (var i = 0; i < monthTotals.length; i++) {
       let monthlyTotal = 0;
@@ -75,7 +76,7 @@ function DailyColumnChart({ year }: Props) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [year]);
 
   const data = {
     series: [

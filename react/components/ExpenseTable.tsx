@@ -19,6 +19,7 @@ import {
   collection,
   query,
   where,
+  orderBy,
   Timestamp,
 } from "firebase/firestore";
 
@@ -54,27 +55,35 @@ function ExpenseTable({ year }: Props) {
 
   const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
 
+  const fetchData = async () => {
+    const expenseData: IExpense[] = [];
+
+    //const expensesRef = await getDocs(collection(database, "expenses"));
+    const expensesRef = collection(database, "expenses");
+    const q = query(
+      expensesRef,
+      where("year", "==", year),
+      orderBy("date", "desc")
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.docs.length == 0) {
+      setRowData([]);
+    }
+
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      // console.log(doc.data());
+      expenseData.push(doc.data() as IExpense);
+
+      setRowData(expenseData);
+    });
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const expenseData: IExpense[] = [];
-
-      //const expensesRef = await getDocs(collection(database, "expenses"));
-      const expensesRef = collection(database, "expenses");
-      const q = query(expensesRef, where("year", "==", year));
-
-      const querySnapshot = await getDocs(q);
-
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        // console.log(doc.data());
-        expenseData.push(doc.data() as IExpense);
-
-        setRowData(expenseData);
-      });
-    };
-
     fetchData();
-  }, []);
+  }, [year]);
 
   const defaultColDef = useMemo(() => {
     return {

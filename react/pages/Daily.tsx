@@ -1,22 +1,12 @@
 import Header from "../components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBurger,
-  faPlusCircle,
-  faMinusCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import DailyColumnChart from "../components/columnCharts/DailyColumnChart";
 import DailyPieChart from "../components/pieCharts/DailyPieChart";
 import DailyStackedBar from "../components/stackedBars/DailyStackedBar";
 import ExpenseTable from "../components/ExpenseTable";
-import CategoryDropdown from "../components/CategoryDropdown";
 import ExpenseForm from "../components/ExpenseForm";
-import Select from "react-select";
-
-import React, { useEffect, useState } from "react";
-import database from "../util/Fbdatabase";
-import { doc, getDocs, collection } from "firebase/firestore";
-
+import React, { useState, useEffect, Children } from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
@@ -58,11 +48,16 @@ function Daily() {
   const [year, setYear] = useState(defaultOption);
   const [showForm, setShowForm] = useState(false);
 
+  useEffect(() => {
+    console.log("year changed");
+
+    console.log(year);
+  }, [year]);
+
   return (
     <>
       <div className="App">
         <Header navigationArray={navigation}></Header>
-
         <div className="yearAndMonthSelector">
           <Dropdown
             options={options}
@@ -91,7 +86,6 @@ function Daily() {
               onClick={() => setShowForm(!showForm)}
               icon={showForm ? faMinusCircle : faPlusCircle}
             />
-
             {showForm ? <ExpenseForm /> : null}
           </div>
           <ExpenseTable year={parseInt(year)}></ExpenseTable>
