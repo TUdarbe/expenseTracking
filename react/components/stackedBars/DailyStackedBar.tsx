@@ -1,29 +1,14 @@
 import Chart from "react-apexcharts";
-import { DAYS, MONTHS } from "../../constants";
+import { MONTHS } from "../../constants";
 import { ApexOptions } from "apexcharts";
 
-import {
-  doc,
-  getDocs,
-  collection,
-  query,
-  where,
-  Timestamp,
-  onSnapshot,
-} from "firebase/firestore";
+import { getDocs, collection, query, where } from "firebase/firestore";
 
 import "firebase/firestore";
 
 import database from "../../util/Fbdatabase";
 
-import React, {
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  useEffect,
-} from "react";
-import moment from "moment";
+import { useState, useEffect } from "react";
 
 interface ISeries {
   name: string;
@@ -75,8 +60,6 @@ function DailyStackedBar({ year }: Props) {
     setChartSeries(series);
   };
 
-  //  fetchData();
-  //  console.log(chartSeries);
   useEffect(() => {
     fetchData();
     console.log("test");

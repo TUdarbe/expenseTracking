@@ -6,7 +6,7 @@ import DailyPieChart from "../components/pieCharts/DailyPieChart";
 import DailyStackedBar from "../components/stackedBars/DailyStackedBar";
 import ExpenseTable from "../components/ExpenseTable";
 import ExpenseForm from "../components/ExpenseForm";
-import React, { useState, useEffect, Children } from "react";
+import { useState, useEffect } from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
@@ -44,7 +44,6 @@ const defaultOption = options[0];
 const monthDefaultOption = monthOptions[0];
 
 function Daily() {
-  const [data, setData] = useState<DailyExpenses[]>([]);
   const [year, setYear] = useState(defaultOption);
   const [showForm, setShowForm] = useState(false);
 

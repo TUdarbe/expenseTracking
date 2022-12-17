@@ -1,23 +1,9 @@
-import React, {
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  useEffect,
-} from "react";
+import { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import { DAYS, CATEGORIES, MONTHS } from "../../constants";
 import { ApexOptions } from "apexcharts";
 import database from "../../util/Fbdatabase";
-import {
-  doc,
-  getDocs,
-  collection,
-  query,
-  where,
-  Timestamp,
-  onSnapshot,
-} from "firebase/firestore";
+import { getDocs, collection, query, where } from "firebase/firestore";
 
 import "firebase/firestore";
 import moment from "moment";
@@ -26,34 +12,14 @@ interface Props {
   year: number;
 }
 
-interface IExpense {
-  date: Date;
-  category: any;
-  description: string;
-  amount: number;
-  note: string;
-}
-
-type Series = {
-  name?: string;
-  data: any[];
-};
-
 function DailyColumnChart({ year }: Props) {
   const [chartData, setChartData] = useState<number[]>([]);
-  const [xAxis, setXAxis] = useState<any[]>([]);
-  const [series, setSeries] = useState<any[]>([]);
 
   const expensesRef = collection(database, "expenses");
 
   const fetchData = async () => {
     let monthTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    //const year = moment().year();
-    //For each month query totals
-
     for (var i = 0; i < monthTotals.length; i++) {
-      let monthlyTotal = 0;
-
       const q = query(
         expensesRef,
         where("month", "==", i),
@@ -68,7 +34,6 @@ function DailyColumnChart({ year }: Props) {
         let date = Number(moment(docData.date).month());
 
         monthTotals[date] += docData.amount;
-        //setChartData(monthTotals);
       });
     }
     setChartData(monthTotals);
@@ -85,12 +50,6 @@ function DailyColumnChart({ year }: Props) {
       },
     ],
   };
-
-  //console.log(JSON.stringify(data));
-
-  // const data = {
-  //   series: series,
-  // };
 
   const options: ApexOptions = {
     title: {
