@@ -28,8 +28,6 @@ function ExpenseForm() {
   };
 
   const handleOnSubmit = async () => {
-    //const date = moment().format("YYYY-MM-DD");
-
     const momentObj = moment(date, "YYYY-MM-DD");
 
     const month = momentObj.month();
@@ -44,8 +42,6 @@ function ExpenseForm() {
       month: month,
       year: year,
     });
-
-    console.log("Document written with ID: ", docRef.id);
   };
 
   return (

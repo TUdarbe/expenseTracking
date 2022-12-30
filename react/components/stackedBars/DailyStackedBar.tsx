@@ -35,7 +35,7 @@ function DailyStackedBar({ year }: Props) {
       const docData = doc.data();
 
       const { category, amount, month } = docData;
-      //Map dataObjs based on categories
+
       if (mapObj.get(category) === undefined) {
         let monthTotals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -62,7 +62,6 @@ function DailyStackedBar({ year }: Props) {
 
   useEffect(() => {
     fetchData();
-    console.log("test");
   }, [year]);
 
   const options: ApexOptions = {

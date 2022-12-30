@@ -55,3 +55,9 @@
 .expenseInfoContainer {
   margin: 20px;
 }
+
+#headerTitle {
+  color: white;
+  font-weight: bold;
+  font-size: 25px;
+}

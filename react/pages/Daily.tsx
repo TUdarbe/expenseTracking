@@ -47,11 +47,7 @@ function Daily() {
   const [year, setYear] = useState(defaultOption);
   const [showForm, setShowForm] = useState(false);
 
-  useEffect(() => {
-    console.log("year changed");
-
-    console.log(year);
-  }, [year]);
+  useEffect(() => {}, [year]);
 
   return (
     <>
