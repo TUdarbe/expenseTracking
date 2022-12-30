@@ -73,8 +73,6 @@ function ExpenseTable({ year }: Props) {
     }
 
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.data());
       expenseData.push(doc.data() as IExpense);
 
       setRowData(expenseData);

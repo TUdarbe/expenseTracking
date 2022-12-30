@@ -45,7 +45,7 @@ function DailyPieChart({ year }: Props) {
         mapObj.set(category, amount);
       }
     });
-    console.log(mapObj);
+
     for (const [key, value] of mapObj) {
       labels.push(key);
       series.push(value);
@@ -56,7 +56,6 @@ function DailyPieChart({ year }: Props) {
 
   useEffect(() => {
     fetchData();
-    console.log("i fire once");
   }, [year]);
 
   const options: ApexOptions = {

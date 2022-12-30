@@ -25,10 +25,6 @@ function CategoryDropdown() {
     setCategory(option);
   };
 
-  const handleOnClick = () => {
-    console.log({ category });
-  };
-
   return (
     <div className="relative w-full lg:max-w-sm mb-2">
       <Select
