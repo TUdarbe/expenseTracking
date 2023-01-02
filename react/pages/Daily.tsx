@@ -89,6 +89,7 @@ function Daily() {
 
   useEffect(() => {}, [year]);
   if (user) {
+    const uid = user.uid;
     return (
       <>
         <div className="App">
@@ -103,13 +104,19 @@ function Daily() {
           </div>
           <div id="chartContainer">
             <div id="pieChartContainer">
-              <DailyPieChart year={parseInt(year)}></DailyPieChart>
+              <DailyPieChart year={parseInt(year)} uid={uid}></DailyPieChart>
             </div>
             <div id="barGraphContainer">
-              <DailyStackedBar year={parseInt(year)}></DailyStackedBar>
+              <DailyStackedBar
+                year={parseInt(year)}
+                uid={uid}
+              ></DailyStackedBar>
             </div>
             <div id="columnChartContainer">
-              <DailyColumnChart year={parseInt(year)}></DailyColumnChart>
+              <DailyColumnChart
+                year={parseInt(year)}
+                uid={uid}
+              ></DailyColumnChart>
             </div>
           </div>
 
@@ -121,9 +128,9 @@ function Daily() {
                 onClick={() => setShowForm(!showForm)}
                 icon={showForm ? faMinusCircle : faPlusCircle}
               />
-              {showForm ? <ExpenseForm /> : null}
+              {showForm ? <ExpenseForm uid={uid} /> : null}
             </div>
-            <ExpenseTable year={parseInt(year)}></ExpenseTable>
+            <ExpenseTable year={parseInt(year)} uid={uid}></ExpenseTable>
           </div>
         </div>
       </>

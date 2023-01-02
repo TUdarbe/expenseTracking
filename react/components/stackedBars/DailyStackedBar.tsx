@@ -17,15 +17,20 @@ interface ISeries {
 
 interface Props {
   year: number;
+  uid: string;
 }
 
-function DailyStackedBar({ year }: Props) {
+function DailyStackedBar({ year, uid }: Props) {
   const [chartSeries, setChartSeries] = useState<ISeries[]>([]);
   const expensesRef = collection(database, "expenses");
 
   const fetchData = async () => {
     let series: ISeries[] = [];
-    const q = query(expensesRef, where("year", "==", year));
+    const q = query(
+      expensesRef,
+      where("year", "==", year),
+      where("uid", "==", uid)
+    );
 
     const mapObj = new Map();
 

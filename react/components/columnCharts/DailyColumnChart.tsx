@@ -10,9 +10,10 @@ import moment from "moment";
 
 interface Props {
   year: number;
+  uid: string;
 }
 
-function DailyColumnChart({ year }: Props) {
+function DailyColumnChart({ year, uid }: Props) {
   const [chartData, setChartData] = useState<number[]>([]);
 
   const expensesRef = collection(database, "expenses");
@@ -23,7 +24,8 @@ function DailyColumnChart({ year }: Props) {
       const q = query(
         expensesRef,
         where("month", "==", i),
-        where("year", "==", year)
+        where("year", "==", year),
+        where("uid", "==", uid)
       );
 
       const querySnapshot = await getDocs(q);

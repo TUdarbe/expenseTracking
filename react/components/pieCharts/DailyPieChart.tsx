@@ -7,14 +7,10 @@ import { useState, useEffect } from "react";
 
 interface Props {
   year: number;
+  uid: string;
 }
 
-interface ChartObj {
-  category: string;
-  amount: number;
-}
-
-function DailyPieChart({ year }: Props) {
+function DailyPieChart({ year, uid }: Props) {
   const [chartLabels, setChartLabels] = useState<string[]>([]);
   const [chartSeries, setChartSeries] = useState<number[]>([]);
 
@@ -25,7 +21,11 @@ function DailyPieChart({ year }: Props) {
     let series: number[] = [];
     const mapObj = new Map();
 
-    const q = query(expensesRef, where("year", "==", year));
+    const q = query(
+      expensesRef,
+      where("year", "==", year),
+      where("uid", "==", uid)
+    );
 
     const querySnapshot = await getDocs(q);
 

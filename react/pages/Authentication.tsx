@@ -2,6 +2,7 @@ import firebase from "firebase/compat/app";
 import * as firebaseui from "firebaseui";
 import { useEffect, useState } from "react";
 import "firebaseui/dist/firebaseui.css";
+import { SignInMethod } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBkZ-THNMtH6oTgfMfsR3x1sMzcb-GwXbA",
@@ -28,7 +29,7 @@ var uiConfig = {
     {
       provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       signInMethod: firebase.auth.GoogleAuthProvider.GOOGLE_SIGN_IN_METHOD,
-      requireDisplayName: false,
+      requireDisplayName: true,
     },
   ],
   signInFlow: "popup",

@@ -16,7 +16,11 @@ const options: TagOptionType[] = [
   { value: "OTHER", label: "OTHER" },
 ];
 
-function ExpenseForm() {
+interface Props {
+  uid: string;
+}
+
+function ExpenseForm({ uid }: Props) {
   const [category, setCategory] = useState({});
   const [amount, setAmount] = useState(0);
   const [description, setDescription] = useState("");
@@ -41,6 +45,7 @@ function ExpenseForm() {
       date: date,
       month: month,
       year: year,
+      uid: uid,
     });
   };
 

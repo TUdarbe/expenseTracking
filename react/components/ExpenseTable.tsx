@@ -44,11 +44,12 @@ interface IExpense {
 
 interface Props {
   year: number;
+  uid: string;
 }
 
 const gridOptions: GridOptions<IExpense> = {};
 
-function ExpenseTable({ year }: Props) {
+function ExpenseTable({ year, uid }: Props) {
   const [rowData, setRowData] = useState<IExpense[]>([]);
 
   const gridRef = useRef<AgGridReact<IExpense>>(null);
@@ -63,6 +64,7 @@ function ExpenseTable({ year }: Props) {
     const q = query(
       expensesRef,
       where("year", "==", year),
+      where("uid", "==", uid),
       orderBy("date", "desc")
     );
 
