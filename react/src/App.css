@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+#signInContainer,
+#redirectContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#signInButton {
+  color: white;
+  font-size: 45px;
+}
+
+#signInTitle {
+  color: white;
+  margin: auto;
+  width: 90%;
+  font-size: 50px;
+}
+
 #chartContainer {
   display: flex;
   flex-direction: row;

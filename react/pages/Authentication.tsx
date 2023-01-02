@@ -1,10 +1,6 @@
 import firebase from "firebase/compat/app";
 import * as firebaseui from "firebaseui";
-import { initializeApp } from "firebase/app";
 import { useEffect, useState } from "react";
-import { Config } from "firebase/auth";
-
-import { GoogleAuthProvider } from "firebase/auth";
 import "firebaseui/dist/firebaseui.css";
 
 const firebaseConfig = {
@@ -31,10 +27,12 @@ var uiConfig = {
   signInOptions: [
     {
       provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      signInMethod: firebase.auth.GoogleAuthProvider.GOOGLE_SIGN_IN_METHOD,
       requireDisplayName: false,
     },
   ],
-  signInSuccessUrl: "/",
+  signInFlow: "popup",
+  signInSuccessUrl: "/dashboard",
 };
 
 function Authentication() {
@@ -48,8 +46,8 @@ function Authentication() {
   return (
     <>
       <div id="signInContainer">
-        <h1>Sign-In</h1>
-        <div id="firebaseui-auth-container"></div>;
+        <h1 id="signInTitle">Welcome</h1>
+        <div id="firebaseui-auth-container"></div>
       </div>
     </>
   );

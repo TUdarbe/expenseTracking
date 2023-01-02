@@ -77,6 +77,8 @@ function DailyStackedBar({ year }: Props) {
       },
     },
 
+    colors: ["#42fcff", "#ffba42", "#89f525", "#f5e425", "#f53b47", "#bc3df2"],
+
     responsive: [
       {
         breakpoint: 480,
