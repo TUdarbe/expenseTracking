@@ -22,6 +22,35 @@
   font-size: 50px;
 }
 
+#wrapper {
+  display: grid;
+  grid-template-columns: min-content auto;
+  grid-template-areas:
+    ".  btn  . . . "
+    " .  sd  sd  main main  "
+    ".  table table table table ";
+  /* ". . . . . . . ."
+    ". sd . main main main main main "
+    "table  table table  table  table   table   table   table   "; */
+}
+#formContainer {
+  grid-area: sd;
+  padding-left: 32px;
+}
+
+#expenseTable {
+  grid-area: table;
+}
+
+#chartContainer {
+  grid-area: main;
+}
+
+#addBtnContainer {
+  grid-area: btn;
+  padding-left: 32px;
+}
+
 #chartContainer {
   display: flex;
   flex-direction: row;

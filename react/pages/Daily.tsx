@@ -82,29 +82,34 @@ function Daily() {
               placeholder="Select an option"
             />
           </div>
-          <div id="chartContainer">
-            <div id="pieChartContainer">
-              <PieChart year={parseInt(year)} uid={uid}></PieChart>
+          <div id="wrapper">
+            <div id="chartContainer">
+              <div id="pieChartContainer">
+                <PieChart year={parseInt(year)} uid={uid}></PieChart>
+              </div>
+              <div id="barGraphContainer">
+                <StackedBar year={parseInt(year)} uid={uid}></StackedBar>
+              </div>
+              <div id="columnChartContainer">
+                <ColumnChart year={parseInt(year)} uid={uid}></ColumnChart>
+              </div>
             </div>
-            <div id="barGraphContainer">
-              <StackedBar year={parseInt(year)} uid={uid}></StackedBar>
-            </div>
-            <div id="columnChartContainer">
-              <ColumnChart year={parseInt(year)} uid={uid}></ColumnChart>
-            </div>
-          </div>
 
-          <div id="expenseTable">
-            <div className="expenseInfoContainer">
+            <div id="expenseTable">
+              <div className="expenseInfoContainer"></div>
+              <ExpenseTable year={parseInt(year)} uid={uid}></ExpenseTable>
+            </div>
+            <div id="addBtnContainer">
               <FontAwesomeIcon
-                className="fa-2x"
+                className="fa-xl"
                 id={showForm ? "hideFormButton" : "showFormButton"}
                 onClick={() => setShowForm(!showForm)}
                 icon={showForm ? faMinusCircle : faPlusCircle}
               />
+            </div>
+            <div id="formContainer">
               {showForm ? <ExpenseForm uid={uid} /> : null}
             </div>
-            <ExpenseTable year={parseInt(year)} uid={uid}></ExpenseTable>
           </div>
         </div>
       </>
