@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Dropdown from "react-dropdown";
+import { useState } from "react";
 import Select from "react-select";
 import "react-dropdown/style.css";
 

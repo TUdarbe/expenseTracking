@@ -1,10 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import firebase from "firebase/compat/app";
-import { getAuth } from "firebase/auth";
-
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+
 interface Props {
   onClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }

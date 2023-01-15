@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import CategoryDropdown from "./CategoryDropdown";
 import database from "../util/Fbdatabase";
 import { collection, addDoc } from "firebase/firestore";
 import moment from "moment";

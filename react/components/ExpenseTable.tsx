@@ -1,38 +1,17 @@
-import React, {
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  useEffect,
-} from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBurger } from "@fortawesome/free-solid-svg-icons";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-
 import database from "../util/Fbdatabase";
-
 import {
-  doc,
   getDocs,
   collection,
   query,
   where,
   orderBy,
-  Timestamp,
+  onSnapshot,
 } from "firebase/firestore";
-
-import {
-  ColDef,
-  ColGroupDef,
-  GetRowIdFunc,
-  GetRowIdParams,
-  Grid,
-  GridOptions,
-  RowSelectedEvent,
-  ValueFormatterParams,
-} from "ag-grid-community";
+import { ColDef } from "ag-grid-community";
 
 interface IExpense {
   date: Date;
@@ -47,20 +26,14 @@ interface Props {
   uid: string;
 }
 
-const gridOptions: GridOptions<IExpense> = {};
-
 function ExpenseTable({ year, uid }: Props) {
   const [rowData, setRowData] = useState<IExpense[]>([]);
 
   const gridRef = useRef<AgGridReact<IExpense>>(null);
 
-  const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
+  const expensesRef = collection(database, "expenses");
 
-  const fetchData = async () => {
-    const expenseData: IExpense[] = [];
-
-    //const expensesRef = await getDocs(collection(database, "expenses"));
-    const expensesRef = collection(database, "expenses");
+  useEffect(() => {
     const q = query(
       expensesRef,
       where("year", "==", year),
@@ -68,21 +41,15 @@ function ExpenseTable({ year, uid }: Props) {
       orderBy("date", "desc")
     );
 
-    const querySnapshot = await getDocs(q);
+    onSnapshot(q, (querySnapshot) => {
+      const expenseData: IExpense[] = [];
 
-    if (querySnapshot.docs.length == 0) {
-      setRowData([]);
-    }
+      querySnapshot.forEach((doc) => {
+        expenseData.push(doc.data() as IExpense);
 
-    querySnapshot.forEach((doc) => {
-      expenseData.push(doc.data() as IExpense);
-
-      setRowData(expenseData);
+        setRowData(expenseData);
+      });
     });
-  };
-
-  useEffect(() => {
-    fetchData();
   }, [year]);
 
   const defaultColDef = useMemo(() => {

@@ -1,17 +1,5 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Disclosure } from "@headlessui/react";
 import Logout from "./Logout";
-
-// const navigation = [
-//   { name: "Daily", href: "#", current: true },
-//   { name: "Monthly", href: "#", current: false },
-//   { name: "Yearly", href: "#", current: false },
-// ];
-
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
-}
 
 interface Props {
   onClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
