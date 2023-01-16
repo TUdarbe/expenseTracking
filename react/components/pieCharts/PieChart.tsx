@@ -71,13 +71,26 @@ function PieChart({ year, uid }: Props) {
       text: "Distribution",
     },
     chart: {
+      redrawOnParentResize: true,
+      redrawOnWindowResize: true,
       width: 200,
       foreColor: "#fff",
+      animations: {
+        enabled: true,
+        easing: "easeout",
+        speed: 500,
+        animateGradually: {
+          enabled: true,
+          delay: 200,
+        },
+      },
     },
+
     legend: {
       position: "bottom",
     },
-    colors: ["#283f6b", "#662222", "#009966", "#63632a", "#f53b47", "#7b0e5c"],
+
+    colors: ["#283f6b", "#581c87", "#009966", "#f59e0b", "#f53b47", "#831843"],
   };
 
   return (

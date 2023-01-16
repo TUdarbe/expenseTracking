@@ -105,9 +105,19 @@ function StackedBar({ year, uid }: Props) {
       zoom: {
         enabled: true,
       },
+
+      animations: {
+        enabled: true,
+        easing: "easeout",
+        speed: 500,
+        animateGradually: {
+          enabled: true,
+          delay: 200,
+        },
+      },
     },
 
-    colors: ["#283f6b", "#662222", "#009966", "#63632a", "#f53b47", "#7b0e5c"],
+    colors: ["#283f6b", "#581c87", "#009966", "#f59e0b", "#f53b47", "#831843"],
     responsive: [
       {
         breakpoint: 480,

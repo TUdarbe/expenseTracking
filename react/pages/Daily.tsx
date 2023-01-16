@@ -99,16 +99,9 @@ function Daily() {
               <div className="expenseInfoContainer"></div>
               <ExpenseTable year={parseInt(year)} uid={uid}></ExpenseTable>
             </div>
-            <div id="addBtnContainer">
-              <FontAwesomeIcon
-                className="fa-xl"
-                id={showForm ? "hideFormButton" : "showFormButton"}
-                onClick={() => setShowForm(!showForm)}
-                icon={showForm ? faMinusCircle : faPlusCircle}
-              />
-            </div>
+
             <div id="formContainer">
-              {showForm ? <ExpenseForm uid={uid} /> : null}
+              <ExpenseForm uid={uid} />
             </div>
           </div>
         </div>

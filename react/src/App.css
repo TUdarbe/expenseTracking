@@ -42,20 +42,18 @@
   grid-area: table;
 }
 
-#chartContainer {
-  grid-area: main;
-}
-
 #addBtnContainer {
   grid-area: btn;
   padding-left: 32px;
 }
 
 #chartContainer {
+  grid-area: main;
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 40vh;
+  overflow: hidden;
 }
 
 #expenseTable {
@@ -82,9 +80,10 @@
 }
 
 #pieChartContainer {
-  width: 20%;
+  width: 22%;
   margin: 10px;
   margin: 58px 50px 75px 100px;
+  overflow: auto;
 }
 
 #barGraphContainer {
@@ -109,4 +108,8 @@
   color: white;
   font-weight: bold;
   font-size: 25px;
+}
+
+.expenseFormInput {
+  background-color: #1e293b;
 }

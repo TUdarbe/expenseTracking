@@ -90,6 +90,15 @@ function ColumnChart({ year, uid }: Props) {
     chart: {
       type: "bar",
       height: 350,
+      animations: {
+        enabled: true,
+        easing: "easeout",
+        speed: 500,
+        animateGradually: {
+          enabled: true,
+          delay: 200,
+        },
+      },
     },
     plotOptions: {
       bar: {

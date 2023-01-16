@@ -48,10 +48,48 @@ function ExpenseForm({ uid }: Props) {
     });
   };
 
+  const customStyles = {
+    control: (base: any, state: any) => ({
+      ...base,
+      background: "#18181b",
+      // match with the menu
+      borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+      // Overwrittes the different states of border
+      borderColor: "#fff",
+      // Removes weird border around container
+      boxShadow: state.isFocused ? null : null,
+
+      outline: state.isHoover ? "#f8fafc" : "#f8fafc",
+    }),
+    menuList: (provided: any, state: any) => ({
+      ...provided,
+      background: "#1f2937",
+      outline: state.isHoover ? "#f8fafc" : "#f8fafc",
+    }),
+
+    option: (provided: any, state: any) => ({
+      ...provided,
+      color: "#f8fafc",
+      backgroundColor: state.isSelected
+        ? "#3f3f46"
+        : state.isFocused
+        ? "#3f3f46"
+        : "#171717",
+      ":hover": {
+        backgroundColor: "#3f3f46",
+      },
+    }),
+
+    singleValue: (provided: any, state: any) => ({
+      ...provided,
+      color: "#f8fafc",
+    }),
+  };
+
   return (
-    <div className="w-full max-w-lg">
+    <div className="w-90 max-w-lg">
       <div className="flex flex-wrap -mx-3 mb-6">
-        <div className="w-full px-3">
+        <div className="w-90  px-3">
           <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
             Date
           </label>
@@ -64,7 +102,7 @@ function ExpenseForm({ uid }: Props) {
               min="2022-01-01"
               max="2024-12-31"
               onChange={(e) => setDate(e.target.value)}
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full bg-zinc-900 text-slate-50 border border-slate-50 rounded py-3 px-4 mb-3 leading-tight focus:outline outline-offset-0 outline-slate-50/50 "
             />
           </div>
 
@@ -78,6 +116,7 @@ function ExpenseForm({ uid }: Props) {
               inputId="categoryDropdown"
               onChange={(option) => handleChange(option as TagOptionType)}
               options={options as any}
+              styles={customStyles}
             />
           </div>
 
@@ -91,7 +130,7 @@ function ExpenseForm({ uid }: Props) {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setAmount(parseInt(e.target.value));
             }}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            className="appearance-none block w-full bg-zinc-900 text-slate-50 border border-slate-50 rounded py-3 px-4 mb-3 leading-tight focus:outline outline-offset-0 outline-slate-50/50 "
           />
 
           <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
@@ -102,7 +141,7 @@ function ExpenseForm({ uid }: Props) {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setDescription(e.target.value);
             }}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            className="appearance-none block w-full bg-zinc-900 text-slate-50 border border-slate-50 rounded py-3 px-4 mb-3 leading-tight focus:outline outline-offset-0 outline-slate-50/50 "
           />
 
           <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
@@ -113,7 +152,7 @@ function ExpenseForm({ uid }: Props) {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setNote(e.target.value);
             }}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            className="appearance-none block w-full bg-zinc-900 text-slate-50 border border-slate-50 rounded py-3 px-4 mb-3 leading-tight focus:outline outline-offset-0 outline-slate-50/50 "
           />
 
           <button
