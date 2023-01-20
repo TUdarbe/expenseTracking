@@ -30,7 +30,9 @@ function ExpenseForm({ uid }: Props) {
     setCategory(option);
   };
 
-  const handleOnSubmit = async () => {
+  const handleOnSubmit = async (e: any) => {
+    e.preventDefault();
+
     const momentObj = moment(date, "YYYY-MM-DD");
 
     const month = momentObj.month();
@@ -45,6 +47,11 @@ function ExpenseForm({ uid }: Props) {
       month: month,
       year: year,
       uid: uid,
+    }).then(() => {
+      setDescription("");
+      setAmount(0);
+      setDate("");
+      setNote("");
     });
   };
 
@@ -52,11 +59,8 @@ function ExpenseForm({ uid }: Props) {
     control: (base: any, state: any) => ({
       ...base,
       background: "#18181b",
-      // match with the menu
       borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-      // Overwrittes the different states of border
       borderColor: "#fff",
-      // Removes weird border around container
       boxShadow: state.isFocused ? null : null,
 
       outline: state.isHoover ? "#f8fafc" : "#f8fafc",
@@ -138,6 +142,7 @@ function ExpenseForm({ uid }: Props) {
           </label>
           <input
             value={description}
+            type="text"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setDescription(e.target.value);
             }}
@@ -149,6 +154,7 @@ function ExpenseForm({ uid }: Props) {
           </label>
           <input
             value={note}
+            type="text"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setNote(e.target.value);
             }}
